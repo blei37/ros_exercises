@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -52,6 +53,10 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message1.msg
 #   Message2.msg
 # )
+add_message_files(
+  FILES
+  OpenSpace.msg  
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -72,6 +77,11 @@ find_package(catkin REQUIRED COMPONENTS
 #   DEPENDENCIES
 #   sensor_msgs#   std_msgs
 # )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,6 +117,7 @@ catkin_package(
 #  LIBRARIES ros_exercises
 #  CATKIN_DEPENDS rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
+  CATKIN_DEPENDS std_msgs message_runtime sensor_msgs
 )
 
 ###########
@@ -162,6 +173,8 @@ include_directories(
 catkin_install_python(PROGRAMS
     src/simple_publisher.py 
     src/simple_subscriber.py
+    src/fake_scan_publisher.py
+    src/open_space_publisher.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
